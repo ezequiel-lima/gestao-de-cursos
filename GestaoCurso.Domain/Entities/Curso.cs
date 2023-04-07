@@ -24,5 +24,16 @@ namespace GestaoCurso.Domain.Entities
         public int QuantidadeDeAluno { get; private set; }
         public Guid CategoriaId { get; private set; }
         public Categoria Categoria { get; private set; }
+
+        public void Alterar(string imagem, string nome, string descricao, DateTime dataInicio, DateTime dataFim, int quantidadeDeAluno, Guid categoriaId)
+        {
+            Imagem = imagem;
+            Nome = nome;
+            Descricao = descricao;
+            DataInicio = dataInicio;
+            DataFim = dataFim;
+            QuantidadeDeAluno = quantidadeDeAluno;
+            CategoriaId = categoriaId;
+        }
     }
 }
