@@ -1,3 +1,4 @@
+using GestaoCurso.Domain.Services.OpenAi;
 using GestaoCurso.Infra;
 using Microsoft.EntityFrameworkCore;
 
@@ -32,5 +33,6 @@ void ConfigureServices(WebApplicationBuilder builder)
 
     builder.Services.AddControllers();
     builder.Services.AddEndpointsApiExplorer();
-    builder.Services.AddSwaggerGen();   
+    builder.Services.AddSwaggerGen();
+    builder.Services.AddScoped(typeof(IOpenAi), typeof(OpenAI));
 }

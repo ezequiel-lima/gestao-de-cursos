@@ -1,4 +1,5 @@
 ﻿using GestaoCurso.Domain.Entities;
+using GestaoCurso.Domain.Services.OpenAi;
 using GestaoCurso.Infra;
 using GestaoCurso.WebApi.ViewModels;
 using GestaoCurso.WebApi.ViewModels.Cursos;
@@ -11,10 +12,12 @@ namespace GestaoCurso.WebApi.Controllers
     public class CursoController : ControllerBase
     {
         private readonly GestaoCursoDataContext _context;
+        private readonly IOpenAi _openAI;
 
-        public CursoController(GestaoCursoDataContext context)
+        public CursoController(GestaoCursoDataContext context, IOpenAi openAI)
         {
             _context = context;
+            _openAI = openAI;
         }
 
         [HttpGet("api/cursos")]
@@ -92,7 +95,9 @@ namespace GestaoCurso.WebApi.Controllers
         {
             try
             {
-                var curso = new Curso(model.Nome, model.Descricao, model.DataInicio, model.DataFim, model.QuantidadeDeAluno, model.CategoriaId);
+                var descricao = await _openAI.GeradorDeDescricaoAsync(model.Nome);
+
+                var curso = new Curso(model.Nome, descricao, model.DataInicio, model.DataFim, model.QuantidadeDeAluno, model.CategoriaId);
                 await _context.Cursos.AddAsync(curso);
                 await _context.SaveChangesAsync();
 
