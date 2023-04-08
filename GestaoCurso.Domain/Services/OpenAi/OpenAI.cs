@@ -1,11 +1,19 @@
-﻿using System.Text;
+﻿using Microsoft.Extensions.Configuration;
+using System.Text;
 using System.Text.Json;
 
 namespace GestaoCurso.Domain.Services.OpenAi
 {
     public class OpenAI : IOpenAi
     {
-        private readonly string _api = "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";
+        private readonly string _api;
+        private readonly IConfiguration _configuration;
+
+        public OpenAI(IConfiguration configuration)
+        {
+            _configuration = configuration;
+            _api = _configuration.GetValue<string>("OpenAI:ApiKey");
+        }
 
         public async Task<string> GeradorDeDescricaoAsync(string nomeCurso)
         {
@@ -33,7 +41,7 @@ namespace GestaoCurso.Domain.Services.OpenAi
                     Resposta resposta = JsonSerializer.Deserialize<Resposta>(conteudo);
 
                     // retornamos uma string pegando o texto
-                    return resposta?.choices?.FirstOrDefault()?.text.Replace("\n", "");                    
+                    return resposta?.choices?.FirstOrDefault()?.text.TrimStart('\n').Replace("\n", "");                    
                 }
                 else
                 {
