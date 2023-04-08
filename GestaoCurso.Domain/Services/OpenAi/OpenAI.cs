@@ -1,10 +1,11 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using GestaoCurso.Shared.Services.OpenAi;
+using Microsoft.Extensions.Configuration;
 using System.Text;
 using System.Text.Json;
 
 namespace GestaoCurso.Domain.Services.OpenAi
 {
-    public class OpenAI : IOpenAi
+    public class OpenAI : IOpenAI
     {
         private readonly string _api;
         private readonly IConfiguration _configuration;

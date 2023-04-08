@@ -1,6 +1,6 @@
-﻿namespace GestaoCurso.Domain.Services.OpenAi
+﻿namespace GestaoCurso.Shared.Services.OpenAi
 {
-    public interface IOpenAi
+    public interface IOpenAI
     {
         Task<string> GeradorDeDescricaoAsync(string nomeCurso);
     }

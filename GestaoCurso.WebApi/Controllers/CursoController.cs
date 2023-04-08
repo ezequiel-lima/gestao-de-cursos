@@ -1,6 +1,6 @@
 ﻿using GestaoCurso.Domain.Entities;
-using GestaoCurso.Domain.Services.OpenAi;
 using GestaoCurso.Infra;
+using GestaoCurso.Shared.Services.OpenAi;
 using GestaoCurso.WebApi.ViewModels;
 using GestaoCurso.WebApi.ViewModels.Cursos;
 using Microsoft.AspNetCore.Mvc;
@@ -12,9 +12,9 @@ namespace GestaoCurso.WebApi.Controllers
     public class CursoController : ControllerBase
     {
         private readonly GestaoCursoDataContext _context;
-        private readonly IOpenAi _openAI;
+        private readonly IOpenAI _openAI;
 
-        public CursoController(GestaoCursoDataContext context, IOpenAi openAI)
+        public CursoController(GestaoCursoDataContext context, IOpenAI openAI)
         {
             _context = context;
             _openAI = openAI;
