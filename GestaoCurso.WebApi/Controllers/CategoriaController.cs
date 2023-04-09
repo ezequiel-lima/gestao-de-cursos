@@ -72,6 +72,9 @@ namespace GestaoCurso.WebApi.Controllers
         {
             try
             {
+                if (!model.IsValid)
+                    return BadRequest(model.Notifications);                           
+
                 var categoria = new Categoria(model.Nome);
                 await _context.Categorias.AddAsync(categoria);
                 await _context.SaveChangesAsync();
