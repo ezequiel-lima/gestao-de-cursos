@@ -1,4 +1,6 @@
-﻿namespace GestaoCurso.WebApi.ViewModels
+﻿using Flunt.Notifications;
+
+namespace GestaoCurso.WebApi.ViewModels
 {
     public class ResultViewModel<T>
     {
@@ -21,6 +23,11 @@
         public ResultViewModel(string error)
         {
             Errors.Add(error);
+        }
+
+        public ResultViewModel(List<Notification> notifications)
+        {
+            Errors = notifications.Select(x => x.Message).ToList();
         }
 
         public T Data { get; private set; }

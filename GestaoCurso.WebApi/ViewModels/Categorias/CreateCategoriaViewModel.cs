@@ -14,8 +14,8 @@ namespace GestaoCurso.WebApi.ViewModels.Categorias
                 .Requires()
                 .IsNotNullOrEmpty(Nome, "Nome", "Nome não pode ser nulo ou vazio")
                 .IsLowerOrEqualsThan(Nome, 100, "Nome", "Nome precisa ter no maximo 100 caracteres")
-            );
-        }
+            ); 
+        }       
 
         public string Nome { get; set; }
     }

@@ -73,7 +73,7 @@ namespace GestaoCurso.WebApi.Controllers
             try
             {
                 if (!model.IsValid)
-                    return BadRequest(model.Notifications);                           
+                    return BadRequest(new ResultViewModel<dynamic>(model.Notifications.ToList()));                           
 
                 var categoria = new Categoria(model.Nome);
                 await _context.Categorias.AddAsync(categoria);
@@ -92,6 +92,9 @@ namespace GestaoCurso.WebApi.Controllers
         {
             try
             {
+                if (!model.IsValid)
+                    return BadRequest(new ResultViewModel<dynamic>(model.Notifications.ToList()));
+
                 var categoria = await _context.Categorias.Where(x => x.Id == id).FirstOrDefaultAsync();
 
                 if (categoria is null)
