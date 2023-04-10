@@ -95,6 +95,9 @@ namespace GestaoCurso.WebApi.Controllers
         {
             try
             {
+                if (!model.IsValid)
+                    return BadRequest(new ResultViewModel<dynamic>(model.Notifications.ToList()));
+
                 var descricao = await _openAI.GeradorDeDescricaoAsync(model.Nome);
 
                 var curso = new Curso(model.Nome, descricao, model.DataInicio, model.DataFim, model.QuantidadeDeAluno, model.CategoriaId);
@@ -114,6 +117,9 @@ namespace GestaoCurso.WebApi.Controllers
         {
             try
             {
+                if (!model.IsValid)
+                    return BadRequest(new ResultViewModel<dynamic>(model.Notifications.ToList()));
+
                 var curso = await _context.Cursos.Where(x => x.Id == id).FirstOrDefaultAsync();
 
                 if (curso is null)
