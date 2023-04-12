@@ -2,11 +2,11 @@
 using Flunt.Validations;
 using GestaoCurso.Shared.ViewModels;
 
-namespace GestaoCurso.WebApi.ViewModels.Categorias
+namespace GestaoCurso.Domain.ViewModels.Categorias
 {
-    public class UpdateCategoriaViewModel : ViewModel
+    public class CreateCategoriaViewModel : ViewModel
     {
-        public UpdateCategoriaViewModel(string nome)
+        public CreateCategoriaViewModel(string nome)
         {
             Nome = nome;
 
@@ -14,8 +14,8 @@ namespace GestaoCurso.WebApi.ViewModels.Categorias
                 .Requires()
                 .IsNotNullOrEmpty(Nome, "Nome", "Nome não pode ser nulo ou vazio")
                 .IsLowerOrEqualsThan(Nome, 100, "Nome", "Nome precisa ter no maximo 100 caracteres")
-            );
-        }
+            ); 
+        }       
 
         public string Nome { get; set; }
     }

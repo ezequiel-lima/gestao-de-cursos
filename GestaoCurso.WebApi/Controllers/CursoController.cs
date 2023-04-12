@@ -1,31 +1,27 @@
-﻿using GestaoCurso.Domain.Entities;
-using GestaoCurso.Infra;
-using GestaoCurso.Shared.Services.OpenAi;
-using GestaoCurso.WebApi.ViewModels;
-using GestaoCurso.WebApi.ViewModels.Cursos;
+﻿using GestaoCurso.Application.Services.Interfaces;
+using GestaoCurso.Domain.Entities;
+using GestaoCurso.Domain.ViewModels;
+using GestaoCurso.Domain.ViewModels.Cursos;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace GestaoCurso.WebApi.Controllers
 {
     [ApiController]
     public class CursoController : ControllerBase
     {
-        private readonly GestaoCursoDataContext _context;
-        private readonly IOpenAI _openAI;
+        private readonly ICursoService _cursoService;
 
-        public CursoController(GestaoCursoDataContext context, IOpenAI openAI)
+        public CursoController(ICursoService cursoService)
         {
-            _context = context;
-            _openAI = openAI;
+            _cursoService = cursoService;
         }
 
         [HttpGet("api/cursos")]
-        public async Task<IActionResult> GeyAsync()
+        public async Task<IActionResult> GetAsync()
         {
             try
             {
-                var cursos = await _context.Cursos.AsNoTracking().Include(x => x.Categoria).ToListAsync();
+                var cursos = await _cursoService.GetAll();
                 return Ok(new ResultViewModel<List<Curso>>(cursos));
             }
             catch
@@ -39,11 +35,7 @@ namespace GestaoCurso.WebApi.Controllers
         {
             try
             {
-                var curso = await _context.Cursos.AsNoTracking().Where(x => x.Id == id).Include(x => x.Categoria).FirstOrDefaultAsync();
-
-                if (curso is null)
-                    return NotFound(new ResultViewModel<Curso>("Curso não encontrado"));
-
+                var curso = await _cursoService.GetById(id);
                 return Ok(new ResultViewModel<Curso>(curso));
             }
             catch
@@ -57,13 +49,7 @@ namespace GestaoCurso.WebApi.Controllers
         {
             try
             {
-                var cursos = await _context.Cursos.AsNoTracking()
-                    .Where(x => x.Categoria.Nome.ToUpper() == nome.ToUpper())
-                    .Include(x => x.Categoria).ToListAsync();
-
-                if (cursos is null)
-                    return NotFound(new ResultViewModel<List<Curso>>("Curso não encontrado"));
-
+                var cursos = await _cursoService.GetCursoByCategoria(nome);
                 return Ok(new ResultViewModel<List<Curso>>(cursos));
             }
             catch
@@ -77,11 +63,7 @@ namespace GestaoCurso.WebApi.Controllers
         {
             try
             {
-                var curso = await _context.Cursos.AsNoTracking().Where(x => x.Nome == nome).Include(x => x.Categoria).FirstOrDefaultAsync();
-
-                if (curso is null)
-                    return NotFound(new ResultViewModel<Curso>("Curso não encontrado"));
-
+                var curso =  await _cursoService.GetByNome(nome);
                 return Ok(new ResultViewModel<Curso>(curso));
             }
             catch
@@ -98,11 +80,7 @@ namespace GestaoCurso.WebApi.Controllers
                 if (!model.IsValid)
                     return BadRequest(new ResultViewModel<dynamic>(model.Notifications.ToList()));
 
-                var descricao = await _openAI.GeradorDeDescricaoAsync(model.Nome);
-
-                var curso = new Curso(model.Nome, descricao, model.DataInicio, model.DataFim, model.QuantidadeDeAluno, model.CategoriaId);
-                await _context.Cursos.AddAsync(curso);
-                await _context.SaveChangesAsync();
+                var curso = await _cursoService.CreateCurso(model);
 
                 return Created($"cursos/{curso.Id}", new ResultViewModel<Curso>(curso));
             }
@@ -120,15 +98,7 @@ namespace GestaoCurso.WebApi.Controllers
                 if (!model.IsValid)
                     return BadRequest(new ResultViewModel<dynamic>(model.Notifications.ToList()));
 
-                var curso = await _context.Cursos.Where(x => x.Id == id).FirstOrDefaultAsync();
-
-                if (curso is null)
-                    return NotFound(new ResultViewModel<Curso>("Curso não encontrado"));
-
-                curso.Alterar(model.Imagem, model.Nome, model.Descricao, model.DataInicio, model.DataFim, model.QuantidadeDeAluno, model.CategoriaId);
-
-                _context.Cursos.Update(curso);
-                await _context.SaveChangesAsync();
+                var curso = await _cursoService.UpdateCurso(id, model);
 
                 return Ok(new ResultViewModel<Curso>(curso));
             }
@@ -143,14 +113,7 @@ namespace GestaoCurso.WebApi.Controllers
         {
             try
             {
-                var curso = await _context.Cursos.AsNoTracking().Where(x => x.Id == id).FirstOrDefaultAsync();
-
-                if (curso is null)
-                    return NotFound(new ResultViewModel<Curso>("Curso não encontrado"));
-
-                _context.Cursos.Remove(curso);
-                await _context.SaveChangesAsync();
-
+                var curso = await _cursoService.DeleteCurso(id);
                 return Ok(new ResultViewModel<Curso>(curso));
             }
             catch 

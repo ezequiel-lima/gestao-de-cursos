@@ -1,6 +1,6 @@
 ﻿using Flunt.Notifications;
 
-namespace GestaoCurso.WebApi.ViewModels
+namespace GestaoCurso.Domain.ViewModels
 {
     public class ResultViewModel<T>
     {

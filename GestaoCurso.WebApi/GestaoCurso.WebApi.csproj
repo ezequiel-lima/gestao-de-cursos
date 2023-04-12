@@ -4,6 +4,7 @@
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>7e3e5a78-4cce-4130-89bf-aa02d0148a42</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,12 +19,14 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="7.0.1" />
     <PackageReference Include="OpenAI" Version="1.7.2" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\GestaoCurso.Application\GestaoCurso.Application.csproj" />
     <ProjectReference Include="..\GestaoCurso.Domain\GestaoCurso.Domain.csproj" />
     <ProjectReference Include="..\GestaoCurso.Infra\GestaoCurso.Infra.csproj" />
     <ProjectReference Include="..\GestaoCurso.Shared\GestaoCurso.Shared.csproj" />

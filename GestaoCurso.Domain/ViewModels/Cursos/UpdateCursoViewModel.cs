@@ -2,7 +2,7 @@
 using Flunt.Validations;
 using GestaoCurso.Shared.ViewModels;
 
-namespace GestaoCurso.WebApi.ViewModels.Cursos
+namespace GestaoCurso.Domain.ViewModels.Cursos
 {
     public class UpdateCursoViewModel : ViewModel
     {

@@ -1,19 +1,19 @@
-﻿using GestaoCurso.Shared.Services.OpenAi;
+﻿using GestaoCurso.Application.Services.Interfaces;
 using Microsoft.Extensions.Configuration;
 using System.Text;
 using System.Text.Json;
 
-namespace GestaoCurso.Domain.Services.OpenAi
+namespace GestaoCurso.Application.Services.OpenAi
 {
-    public class OpenAI : IOpenAI
+    public class OpenAi : IOpenAi
     {
         private readonly string _api;
         private readonly IConfiguration _configuration;
 
-        public OpenAI(IConfiguration configuration)
+        public OpenAi(IConfiguration configuration)
         {
             _configuration = configuration;
-            _api = _configuration.GetValue<string>("OpenAI:ApiKey");
+            _api = _configuration["OpenAI:ApiKey"];
         }
 
         public async Task<string> GeradorDeDescricaoAsync(string nomeCurso)
@@ -32,7 +32,7 @@ namespace GestaoCurso.Domain.Services.OpenAi
                 client.DefaultRequestHeaders.Add("Authorization", "Bearer " + _api);
                 var response = await client.PostAsync("https://api.openai.com/v1/completions",
                     new StringContent("{\"model\": \"" + modelo + "\", \"prompt\": \"" + prompt + "\", \"temperature\": 1, \"max_tokens\": 512}", Encoding.UTF8, "application/json"));
-         
+
                 if (response.IsSuccessStatusCode)
                 {
                     // passamos todo o conteudo do response para uma string
@@ -42,13 +42,13 @@ namespace GestaoCurso.Domain.Services.OpenAi
                     Resposta resposta = JsonSerializer.Deserialize<Resposta>(conteudo);
 
                     // retornamos uma string pegando o texto
-                    return resposta?.choices?.FirstOrDefault()?.text.TrimStart('\n').Replace("\n", "");                    
+                    return resposta?.choices?.FirstOrDefault()?.text.TrimStart('\n').Replace("\n", "");
                 }
                 else
                 {
                     return "Não foi possível gerar uma descrição para o curso.";
                 }
-            }        
+            }
         }
 
         public class Resposta

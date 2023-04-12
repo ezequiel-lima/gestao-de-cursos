@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GestaoCurso.WebApi", "GestaoCurso.WebApi\GestaoCurso.WebApi.csproj", "{B046C5DE-EDDD-4A0C-ACC2-7EF2B418AF9E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GestaoCurso.WebApi", "GestaoCurso.WebApi\GestaoCurso.WebApi.csproj", "{B046C5DE-EDDD-4A0C-ACC2-7EF2B418AF9E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GestaoCurso.Domain", "GestaoCurso.Domain\GestaoCurso.Domain.csproj", "{1FDE95EC-C7D9-4895-A157-2427F4B4AA87}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GestaoCurso.Domain", "GestaoCurso.Domain\GestaoCurso.Domain.csproj", "{1FDE95EC-C7D9-4895-A157-2427F4B4AA87}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GestaoCurso.Shared", "GestaoCurso.Shared\GestaoCurso.Shared.csproj", "{304686F1-D2A8-46EE-89C6-6C2A18F5DA6E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GestaoCurso.Shared", "GestaoCurso.Shared\GestaoCurso.Shared.csproj", "{304686F1-D2A8-46EE-89C6-6C2A18F5DA6E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GestaoCurso.Infra", "GestaoCurso.Infra\GestaoCurso.Infra.csproj", "{CF75AC04-95D7-4308-B215-10B9E7A63A56}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GestaoCurso.Infra", "GestaoCurso.Infra\GestaoCurso.Infra.csproj", "{CF75AC04-95D7-4308-B215-10B9E7A63A56}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GestaoCurso.Application", "GestaoCurso.Application\GestaoCurso.Application.csproj", "{35D1FCFF-DE9F-4BB0-9626-0ABEAFB3F6C0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{CF75AC04-95D7-4308-B215-10B9E7A63A56}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF75AC04-95D7-4308-B215-10B9E7A63A56}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF75AC04-95D7-4308-B215-10B9E7A63A56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35D1FCFF-DE9F-4BB0-9626-0ABEAFB3F6C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35D1FCFF-DE9F-4BB0-9626-0ABEAFB3F6C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35D1FCFF-DE9F-4BB0-9626-0ABEAFB3F6C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35D1FCFF-DE9F-4BB0-9626-0ABEAFB3F6C0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

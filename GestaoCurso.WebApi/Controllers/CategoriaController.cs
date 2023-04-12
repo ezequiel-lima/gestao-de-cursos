@@ -1,20 +1,19 @@
-﻿using GestaoCurso.Domain.Entities;
-using GestaoCurso.Infra;
-using GestaoCurso.WebApi.ViewModels;
-using GestaoCurso.WebApi.ViewModels.Categorias;
+﻿using GestaoCurso.Application.Services.Interfaces;
+using GestaoCurso.Domain.Entities;
+using GestaoCurso.Domain.ViewModels;
+using GestaoCurso.Domain.ViewModels.Categorias;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace GestaoCurso.WebApi.Controllers
 {
     [ApiController]
     public class CategoriaController : ControllerBase
     {
-        private readonly GestaoCursoDataContext _context;
+        private readonly ICategoriaService _categoriaService;
 
-        public CategoriaController(GestaoCursoDataContext context)
+        public CategoriaController(ICategoriaService categoriaService)
         {
-            _context = context;
+            _categoriaService = categoriaService;
         }
 
         [HttpGet("api/categorias")]
@@ -22,7 +21,7 @@ namespace GestaoCurso.WebApi.Controllers
         {
             try
             {
-                var categorias = await _context.Categorias.AsNoTracking().Where(x => x.Ativo == true).ToListAsync();
+                var categorias = await _categoriaService.GetAtivos();
                 return Ok(new ResultViewModel<List<Categoria>>(categorias));
             }
             catch 
@@ -36,11 +35,7 @@ namespace GestaoCurso.WebApi.Controllers
         {
             try
             {
-                var categoria = await _context.Categorias.AsNoTracking().Where(x => x.Id == id).FirstOrDefaultAsync();
-
-                if (categoria is null)
-                    return NotFound(new ResultViewModel<Categoria>("Categoria não encontrada"));
-
+                var categoria = await _categoriaService.GetById(id);
                 return Ok(new ResultViewModel<Categoria>(categoria));
             }
             catch
@@ -54,11 +49,7 @@ namespace GestaoCurso.WebApi.Controllers
         {
             try
             {
-                var categoria = await _context.Categorias.AsNoTracking().Where(x => x.Nome == nome).FirstOrDefaultAsync();
-
-                if (categoria is null)
-                    return NotFound(new ResultViewModel<Categoria>("Categoria não encontrada"));
-
+                var categoria = await _categoriaService.GetByNome(nome);
                 return Ok(new ResultViewModel<Categoria>(categoria));
             }
             catch 
@@ -73,11 +64,9 @@ namespace GestaoCurso.WebApi.Controllers
             try
             {
                 if (!model.IsValid)
-                    return BadRequest(new ResultViewModel<dynamic>(model.Notifications.ToList()));                           
+                    return BadRequest(new ResultViewModel<dynamic>(model.Notifications.ToList()));
 
-                var categoria = new Categoria(model.Nome);
-                await _context.Categorias.AddAsync(categoria);
-                await _context.SaveChangesAsync();
+                var categoria = await _categoriaService.CreateCategoria(model);
 
                 return Created($"categorias/{categoria.Id}", new ResultViewModel<Categoria>(categoria));
             }
@@ -95,15 +84,7 @@ namespace GestaoCurso.WebApi.Controllers
                 if (!model.IsValid)
                     return BadRequest(new ResultViewModel<dynamic>(model.Notifications.ToList()));
 
-                var categoria = await _context.Categorias.Where(x => x.Id == id).FirstOrDefaultAsync();
-
-                if (categoria is null)
-                    return NotFound(new ResultViewModel<Categoria>("Categoria não encontrada"));
-
-                categoria.Alterar(model.Nome);
-
-                _context.Categorias.Update(categoria);
-                await _context.SaveChangesAsync();
+                var categoria = await _categoriaService.UpdateCategoria(id, model);
 
                 return Ok(new ResultViewModel<Categoria>(categoria));
             }
@@ -118,16 +99,7 @@ namespace GestaoCurso.WebApi.Controllers
         {
             try
             {
-                var categoria = await _context.Categorias.Where(x => x.Id == id).FirstOrDefaultAsync();
-
-                if (categoria is null)
-                    return NotFound(new ResultViewModel<Categoria>("Categoria não encontrada"));
-
-                categoria.Alterar();
-
-                _context.Categorias.Update(categoria);
-                await _context.SaveChangesAsync();
-
+                var categoria = await _categoriaService.PatchCategoria(id);
                 return Ok(new ResultViewModel<Categoria>(categoria));
             }
             catch 
