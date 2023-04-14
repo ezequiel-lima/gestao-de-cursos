@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GestaoCurso.Shared", "Gesta
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GestaoCurso.Infra", "GestaoCurso.Infra\GestaoCurso.Infra.csproj", "{CF75AC04-95D7-4308-B215-10B9E7A63A56}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GestaoCurso.Application", "GestaoCurso.Application\GestaoCurso.Application.csproj", "{35D1FCFF-DE9F-4BB0-9626-0ABEAFB3F6C0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GestaoCurso.Application", "GestaoCurso.Application\GestaoCurso.Application.csproj", "{35D1FCFF-DE9F-4BB0-9626-0ABEAFB3F6C0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GestaoCurso.Tests", "GestaoCurso.Tests\GestaoCurso.Tests.csproj", "{FF929534-91C1-4228-B09D-18EB0B60060C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{35D1FCFF-DE9F-4BB0-9626-0ABEAFB3F6C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35D1FCFF-DE9F-4BB0-9626-0ABEAFB3F6C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35D1FCFF-DE9F-4BB0-9626-0ABEAFB3F6C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF929534-91C1-4228-B09D-18EB0B60060C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF929534-91C1-4228-B09D-18EB0B60060C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF929534-91C1-4228-B09D-18EB0B60060C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF929534-91C1-4228-B09D-18EB0B60060C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
