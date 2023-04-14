@@ -28,5 +28,30 @@ namespace GestaoCurso.Tests.ViewModels
 
             Assert.IsFalse(curso.IsValid);
         }
+
+        [TestMethod]
+        [DataTestMethod]
+        [DataRow("", "Programação", "Descricao", "2035-01-01", "2035-12-31", 30, "A8BB0629-2877-405F-B636-5303B715540A")]
+        public void Deve_Retornar_Sucesso_Quando_Curso_For_Valido_Para_Atualizacao(string imagem, string nome, string descricao, string dataInicio, string dataFim, int quantidadeDeAluno, string categoriaId)
+        {
+            var curso = new UpdateCursoViewModel(imagem, nome, descricao, DateTime.Parse(dataInicio), DateTime.Parse(dataFim), quantidadeDeAluno, Guid.Parse(categoriaId));
+
+            Assert.IsTrue(curso.IsValid);
+        }
+
+        [TestMethod]
+        [DataTestMethod]
+        [DataRow("url", "Programação", "descricao", "2035-01-01", "2035-12-31", 30, "A8BB0629-2877-405F-B636-5303B715540A")]
+        [DataRow("www.testedeimagem.com", "", "descricao", "2035-01-01", "2035-12-31", 30, "A8BB0629-2877-405F-B636-5303B715540A")]
+        [DataRow("www.testedeimagem.com", "rRSHccAbeJxPHwEGRUGcQqPtSjMTyBDqxWqgigVFNUKASTRdASrGThMEnhYcaUhdcuiddUWfauUWPSjCEVQnkmzdfYWUdBEtZrEPF", "descricao", "2035-01-01", "2035-12-31", 30, "A8BB0629-2877-405F-B636-5303B715540A")]
+        [DataRow("www.testedeimagem.com", "Programação", "descricao", "2022-01-01", "2035-12-31", 30, "A8BB0629-2877-405F-B636-5303B715540A")]
+        [DataRow("www.testedeimagem.com", "Programação", "descricao", "2035-02-02", "2035-01-01", 30, "A8BB0629-2877-405F-B636-5303B715540A")]
+        [DataRow("www.testedeimagem.com", "Programação", "descricao", "2035-01-01", "2035-12-31", -1, "A8BB0629-2877-405F-B636-5303B715540A")]
+        public void Deve_Retornar_Erro_Quando_Curso_For_Invalido_Para_Atualizacao(string imagem, string nome, string descricao, string dataInicio, string dataFim, int quantidadeDeAluno, string categoriaId)
+        {
+            var curso = new UpdateCursoViewModel(imagem, nome, descricao, DateTime.Parse(dataInicio), DateTime.Parse(dataFim), quantidadeDeAluno, Guid.Parse(categoriaId));
+
+            Assert.IsFalse(curso.IsValid);
+        }
     }
 }
