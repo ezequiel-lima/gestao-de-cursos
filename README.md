@@ -10,6 +10,8 @@ A API também possui endpoints para manipulação de categorias, permitindo list
 
 O projeto utiliza a biblioteca OpenAI para gerar uma descrição do curso a partir do seu nome, que é usada na criação de um novo curso. 
 
+Além das funcionalidades de CRUD, o projeto também inclui testes das viewmodels de curso e categoria. Esses testes garantem a integridade e a qualidade do código, permitindo a validação das entradas e saídas das viewmodels, bem como a verificação de possíveis erros ou comportamentos inesperados.
+
 ## Demonstração 
 
 Endpoints
@@ -19,6 +21,10 @@ Endpoints
 Demonstração da integração do OpenAI para criação de um curso
 
 https://user-images.githubusercontent.com/81567476/230728748-a8bfd5e7-5e87-4e5f-a976-915bc2023ab6.mp4
+
+Testes
+
+![Tests](https://user-images.githubusercontent.com/81567476/232260613-84bd6d65-ee44-453c-8ce9-0233109913cc.png)
 
 ## Como executar o projeto
 Para executar o projeto, siga as seguintes etapas:
